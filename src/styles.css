@@ -1,5 +1,38 @@
-
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.main-content{
+    display: grid;
+    grid-template-columns: 25% 75%;
+    gap: 20px;
+    padding: 10px;
+}
+h1{
+    grid-column: 1/-1;
+    padding: 30px 5px;
+}
+.folder-container{
+    margin-left: 10px;
+    
+}
 
 #todo-list-container{
     display: none;
+    align-items: center;
+    flex-direction: column;
+}
+
+#todo-list{
+    width: 100%;
+}
+#todo-list li{
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+#todo-list li p{
+    font-size: 30px;
 }

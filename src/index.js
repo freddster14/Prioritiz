@@ -12,55 +12,50 @@ let selectedFolder = undefined
 
 addFolderBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    addFolder();
+    createFolder(inputFolder.value, inputDescription.value);
 });
 
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if(inputTitle.value == "" || inputDescription.value == "") return
-    new Folder().addTodo(inputTitle.value, inputDescription.value, todoPriority.value, false);
+    if(inputTitle.value == "") return
+    new Folder().addTodo(inputTitle.value, todoPriority.value, false);
 });
 
 
 
 class Todo{
-    constructor(title, description, priority, complete){
+    constructor(title, priority, complete){
         this.title = title;
-        this.description = description;
         this.priority = priority;
         this.complete = complete
     }
-    createTodoList(todoTitle, todoDescription, todoPriority){
-        let todoListElement = document.getElementById("todo-list");
-        let listItemElement = document.createElement("li");
-        let listItemDescription = document.createElement('p');
-        let listItemPriority = document.createElement('p');
-
-        let listItemCompletion = document.createElement('input');
-
-
-        listItemElement.textContent = todoTitle;
-        listItemDescription.textContent = todoDescription;
-        listItemPriority.textContent = todoPriority
-
-        todoListElement.appendChild(listItemElement);
-        listItemElement.appendChild(listItemDescription);
-        listItemElement.appendChild(listItemPriority);
-    }
+    
     
 }
 
 class Folder{
-    constructor(name){
+    constructor(name, description){
         this.name = name;
+        this.description = description;
         this.todo = [];
     }
 
-    addTodo(title, description, priority, complete){
+    addTodo(title, priority, complete){
         if(selectedFolder == undefined) return;
-        new Todo().createTodoList(title, description, priority);
-        selectedFolder.todo.push(new Todo(title, description, priority, complete));
+        let newTodo = new Todo(title, priority, complete)
+        selectedFolder.todo.push(newTodo);
+        displayFolder(selectedFolder.todo);
+        console.log(selectedFolder)
         inputTitle.value = "";
+        return newTodo
+    }
+    deleteTodo(parent, selectedTodo){
+        document.querySelector("#todo-list").removeChild(parent)
+        console.log(selectedTodo)
+        const index = selectedFolder.todo.indexOf(selectedTodo);
+        if(index > -1){
+            selectedFolder.todo.splice(index, 1);
+        }
     }
 }
 
@@ -70,36 +65,55 @@ function displayFolder(todoList){
     console.log(todoList)
 	for (let i = 0; i < todoList.length; i++) {
 		let listItemElement = document.createElement("li");
-        let listItemDescription = document.createElement('p');
-        let listItemPriority = document.createElement('p');
+        let listItemText = document.createElement("p");
+        let listItemCompletion = document.createElement('input');
 
-		listItemElement.textContent = todoList[i].title;
-        listItemDescription.textContent = todoList[i].description;
-        listItemPriority.textContent = todoList[i].priority;
+        if(todoList[i].priority == "Low"){listItemElement.style.background = "blue"}
+        else if(todoList[i].priority == "Medium"){listItemElement.style.background = "orange"}
+        else{listItemElement.style.background = "red"}
+
+        listItemCompletion.setAttribute("type", "checkbox");
+        listItemCompletion.addEventListener("change", () => {
+            selectedFolder.deleteTodo(listItemCompletion.parentElement, todoList[i]);
+            displayFolder(todoList)   ;
+            })
+    
+		listItemText.textContent = todoList[i].title;
+        listItemCompletion.checked = todoList[i].complete;
 
 		todoListElement.appendChild(listItemElement);
-        listItemElement.appendChild(listItemDescription);
-        listItemElement.appendChild(listItemPriority);
+        listItemElement.appendChild(listItemCompletion);
+        listItemElement.appendChild(listItemText);
 
 	}
 }
 
 
-function createFolder(folderTitle){
+function createFolder(folderTitle, description){
     const folderContainer = document.querySelector(".folder-container");
     const currentFolder = document.createElement("div");
-    const folderText = document.createElement("p");
-    let newFolder = new Folder(folderTitle);
+    const folderText = document.createElement("h2");
+    const folderDescription = document.createElement("p");
+
+    let newFolder = new Folder(folderTitle, description);
 
     console.log(newFolder)
     folderText.textContent = folderTitle;
+    folderDescription.textContent = description;
+
     folderContainer.appendChild(currentFolder);
     currentFolder.appendChild(folderText);
+    currentFolder.appendChild(folderDescription);
+    
+    inputDescription.value = "";
+    inputFolder.value = "";
+
     currentFolder.addEventListener('click', (event) => {
         event.preventDefault();
+        if(selectedFolder == newFolder) return;
         displayFolder(newFolder.todo);
         selectedFolder = newFolder;
-        todoListContainer.style.display = "block"
+        todoListContainer.style.display = "flex"
         console.log(selectedFolder)
     });
     
@@ -107,9 +121,7 @@ function createFolder(folderTitle){
 
 
 
-function addFolder(){
-    createFolder(inputFolder.value);
-}
+
 
 
 
