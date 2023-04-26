@@ -7,27 +7,31 @@
     <title>To-Do</title>
 </head>
 <body>
-    <h1>To-Do</h1>
-    <h2>Folder</h2>
-    <form>
-        <input type="text" id="folder-input">
-        <button id="folder-btn">Add Folder</button>
-    </form>
-    <div class="folder-container">
-    </div>
-    <div id="todo-list-container">
-        <form>
-            <input type="text" id="todo-title" placeholder="title">
-            <input type="text" id="todo-description" placeholder="description">
-            <select name="Priority" id="todo-priority">
-                <option value="Low" selected>Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-            <button id="todo-btn">Add ToDo</button>
-        </form>
-        <ul id="todo-list">
-        </ul>
+    <div class="main-content">
+        <h1>Prioritiz</h1>
+            <div class="main-folder-container">
+                <h2>Folder</h2>
+                <form>
+                    <input type="text" id="folder-input" placeholder="name">
+                    <input type="text" id="todo-description" placeholder="description">
+                    <button id="folder-btn">Add Folder</button>
+                </form>
+                <div class="folder-container">
+                </div>
+            </div>
+        <div id="todo-list-container">
+            <form>
+                <input type="text" id="todo-title" placeholder="title">
+                <select name="Priority" id="todo-priority">
+                    <option value="Low" selected>Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <button id="todo-btn">Add ToDo</button>
+            </form>
+            <ul id="todo-list">
+            </ul>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>
