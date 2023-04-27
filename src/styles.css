@@ -36,3 +36,11 @@ h1{
 #todo-list li p{
     font-size: 30px;
 }
+
+.low-priority {
+    background-color: rgb(127, 255, 138);
+}
+
+.medium-priority{ background-color: rgb(231, 172, 61);}
+
+.high-priority{background-color: rgb(185, 72, 72);}

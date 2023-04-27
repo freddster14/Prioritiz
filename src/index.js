@@ -1,28 +1,5 @@
 import './styles.css'
 
-const addFolderBtn = document.querySelector("#folder-btn");
-const addTodoBtn = document.querySelector("#todo-btn")
-const inputFolder = document.querySelector("#folder-input");
-const inputTitle = document.querySelector("#todo-title");
-const inputDescription = document.querySelector("#todo-description")
-const todoListContainer = document.querySelector("#todo-list-container");
-const todoPriority = document.querySelector("#todo-priority");
-
-let selectedFolder = undefined
-
-addFolderBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    createFolder(inputFolder.value, inputDescription.value);
-});
-
-addTodoBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if(inputTitle.value == "") return
-    new Folder().addTodo(inputTitle.value, todoPriority.value, false);
-});
-
-
-
 class Todo{
     constructor(title, priority, complete){
         this.title = title;
@@ -57,7 +34,43 @@ class Folder{
             selectedFolder.todo.splice(index, 1);
         }
     }
+
 }
+
+
+const addFolderBtn = document.querySelector("#folder-btn");
+const addTodoBtn = document.querySelector("#todo-btn")
+const inputFolder = document.querySelector("#folder-input");
+const inputTitle = document.querySelector("#todo-title");
+const inputDescription = document.querySelector("#todo-description")
+const todoListContainer = document.querySelector("#todo-list-container");
+const todoPriority = document.querySelector("#todo-priority");
+
+let selectedFolder = undefined
+let addFolder = false
+let folderStorage = [];
+
+
+addFolderBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    addFolder = true;
+    createFolder(inputFolder.value, inputDescription.value);
+    localStorage.setItem('folders', JSON.stringify(folderStorage))
+});
+
+addTodoBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if(inputTitle.value == "") return
+    new Folder().addTodo(inputTitle.value, todoPriority.value, false);
+});
+
+if(!localStorage.getItem('folders')) {
+    populateStorage();
+} else {
+    importInfo();
+}
+
+
 
 function displayFolder(todoList){
     let todoListElement = document.getElementById("todo-list");
@@ -68,9 +81,9 @@ function displayFolder(todoList){
         let listItemText = document.createElement("p");
         let listItemCompletion = document.createElement('input');
 
-        if(todoList[i].priority == "Low"){listItemElement.style.background = "blue"}
-        else if(todoList[i].priority == "Medium"){listItemElement.style.background = "orange"}
-        else{listItemElement.style.background = "red"}
+        if(todoList[i].priority == "Low"){listItemElement.classList.add("low-priority")}
+        else if(todoList[i].priority == "Medium"){listItemElement.classList.add("medium-priority")}
+        else{listItemElement.classList.add("high-priority")}
 
         listItemCompletion.setAttribute("type", "checkbox");
         listItemCompletion.addEventListener("change", () => {
@@ -94,10 +107,10 @@ function createFolder(folderTitle, description){
     const currentFolder = document.createElement("div");
     const folderText = document.createElement("h2");
     const folderDescription = document.createElement("p");
+    folderStorage = JSON.parse(localStorage.getItem('folders'));
 
     let newFolder = new Folder(folderTitle, description);
 
-    console.log(newFolder)
     folderText.textContent = folderTitle;
     folderDescription.textContent = description;
 
@@ -107,7 +120,10 @@ function createFolder(folderTitle, description){
     
     inputDescription.value = "";
     inputFolder.value = "";
-
+    
+    if(addFolder)folderStorage.push(newFolder);
+    console.log(newFolder);
+    
     currentFolder.addEventListener('click', (event) => {
         event.preventDefault();
         if(selectedFolder == newFolder) return;
@@ -116,14 +132,26 @@ function createFolder(folderTitle, description){
         todoListContainer.style.display = "flex"
         console.log(selectedFolder)
     });
+    console.log(folderStorage)
+
+
     
 }
 
+function populateStorage() {
+    localStorage.setItem('folders', JSON.stringify(folderStorage));
+    importInfo();
+}
 
 
+function importInfo() {
+    folderStorage = JSON.parse(localStorage.getItem('folders'));
+    console.log(folderStorage)
+    for(let i = 0; i < folderStorage.length; i++){
+        createFolder(folderStorage[i].name, folderStorage[i].description)
+    }
+}
 
 
-
-
-
+console.log(localStorage)
 
