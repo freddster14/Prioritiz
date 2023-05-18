@@ -11,29 +11,23 @@ class Todo{
 }
 
 class Folder{
-    constructor(name, description){
+    constructor(name, description, id){
         this.name = name;
         this.description = description;
+        this.id = id;
         this.todo = [];
     }
 
-    addTodo(title, priority, complete){
+    addTodo(title, priority, complete, id){
         if(selectedFolder == undefined) return;
         let newTodo = new Todo(title, priority, complete)
-        selectedFolder.todo.push(newTodo);
-        displayFolder(selectedFolder.todo);
-        console.log(selectedFolder)
+        folderStorage[id].todo.push(newTodo)
+        displayFolder(folderStorage[id].todo);
         inputTitle.value = "";
+        localStorage.setItem('folders', JSON.stringify(folderStorage))
         return newTodo
     }
-    deleteTodo(parent, selectedTodo){
-        document.querySelector("#todo-list").removeChild(parent)
-        console.log(selectedTodo)
-        const index = selectedFolder.todo.indexOf(selectedTodo);
-        if(index > -1){
-            selectedFolder.todo.splice(index, 1);
-        }
-    }
+    
 
 }
 
@@ -47,6 +41,7 @@ const todoListContainer = document.querySelector("#todo-list-container");
 const todoPriority = document.querySelector("#todo-priority");
 
 let selectedFolder = undefined
+let i = -1
 let addFolder = false
 let folderStorage = [];
 
@@ -61,7 +56,7 @@ addFolderBtn.addEventListener('click', (e) => {
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if(inputTitle.value == "") return
-    new Folder().addTodo(inputTitle.value, todoPriority.value, false);
+    new Folder().addTodo(inputTitle.value, todoPriority.value, false, selectedFolder.id);
 });
 
 if(!localStorage.getItem('folders')) {
@@ -71,6 +66,14 @@ if(!localStorage.getItem('folders')) {
 }
 
 
+
+function deleteTodo(selectedTodo){
+    console.log(selectedTodo)
+    const index = folderStorage[selectedFolder.id].todo.indexOf(selectedTodo);
+    if(index > -1){
+        folderStorage[selectedFolder.id].todo.splice(index, 1);
+    }
+}
 
 function displayFolder(todoList){
     let todoListElement = document.getElementById("todo-list");
@@ -87,8 +90,9 @@ function displayFolder(todoList){
 
         listItemCompletion.setAttribute("type", "checkbox");
         listItemCompletion.addEventListener("change", () => {
-            selectedFolder.deleteTodo(listItemCompletion.parentElement, todoList[i]);
-            displayFolder(todoList)   ;
+            deleteTodo(folderStorage[selectedFolder.id].todo[i]);
+            localStorage.setItem('folders', JSON.stringify(folderStorage))
+            displayFolder(todoList);
             })
     
 		listItemText.textContent = todoList[i].title;
@@ -102,14 +106,16 @@ function displayFolder(todoList){
 }
 
 
+
+
 function createFolder(folderTitle, description){
     const folderContainer = document.querySelector(".folder-container");
     const currentFolder = document.createElement("div");
     const folderText = document.createElement("h2");
     const folderDescription = document.createElement("p");
     folderStorage = JSON.parse(localStorage.getItem('folders'));
-
-    let newFolder = new Folder(folderTitle, description);
+    let newFolder = new Folder(folderTitle, description, getId(i));
+    i = getId(i);
 
     folderText.textContent = folderTitle;
     folderDescription.textContent = description;
@@ -120,19 +126,16 @@ function createFolder(folderTitle, description){
     
     inputDescription.value = "";
     inputFolder.value = "";
-    
+
     if(addFolder)folderStorage.push(newFolder);
-    console.log(newFolder);
     
     currentFolder.addEventListener('click', (event) => {
         event.preventDefault();
         if(selectedFolder == newFolder) return;
-        displayFolder(newFolder.todo);
+        displayFolder(folderStorage[newFolder.id].todo);
         selectedFolder = newFolder;
         todoListContainer.style.display = "flex"
-        console.log(selectedFolder)
     });
-    console.log(folderStorage)
 
 
     
@@ -143,6 +146,10 @@ function populateStorage() {
     importInfo();
 }
 
+function getId(i){
+    i++;
+    return i;
+}
 
 function importInfo() {
     folderStorage = JSON.parse(localStorage.getItem('folders'));
@@ -154,4 +161,3 @@ function importInfo() {
 
 
 console.log(localStorage)
-
