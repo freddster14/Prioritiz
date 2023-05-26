@@ -1,17 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
 *{
     margin: 0px;
     padding: 0px;
 }
 .main-content{
     display: grid;
+    height: 100vh;
+    width: 100%;
+    font-family: 'Libre Baskerville', serif;
     grid-template-columns: 25% 75%;
-    gap: 20px;
-    padding: 10px;
+    grid-template-rows: auto 1fr;
+    background-color: #bbbbbb;
+}
+
+#title{
+    grid-column: 1/-1;
+    display: flex;
+    background-color: #f0f0f0ee;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 7px rgba(22, 22, 22, 0.411);
+    z-index: 1;
 }
 h1{
-    grid-column: 1/-1;
-    padding: 30px 5px;
+    font-size: 45px;
+    padding: 30px 20px;
+    font-weight: 700;
+ 
 }
+#title img{
+    width: 80px;
+}
+
+
+#folder-header{
+    display: flex;
+    justify-content: space-between;
+}
+div h2 {
+    font-size: 30px;
+    color: #222222;
+}
+
+div div img{
+    width: 30px;
+}
+
+.main-folder-container{
+    padding: 20px 25px;
+    background-color: #e0e0e0;
+}
+
+.folder-add-container{
+    display: flex;
+    font-size: 20px;
+}
+
+#display-form-btn{
+    margin-left: 20px;
+}
+#form{
+    display: none;
+    z-index: 1;
+    background-color: white;
+    padding: 20px;
+    border: 1px black solid;
+    border-radius: 10px;
+}
+
+#form.active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 17px;
+    margin: 17px 5px;
+}
+
 .folder-container{
     margin-left: 10px;
     
@@ -19,7 +84,9 @@ h1{
 
 #todo-list-container{
     display: none;
+    padding-left: 10%;
     align-items: center;
+    max-width: 1000px;
     flex-direction: column;
 }
 
@@ -36,7 +103,6 @@ h1{
 #todo-list li{
     display: flex;
     gap: 40px;
-    padding-left: 25%;
     width: 80%;
     align-items: center;
     font-size: 30px;
@@ -51,8 +117,39 @@ li input{
 	position: relative;
     cursor: pointer;
 }
+
+li input:active, li input:checked:active{
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.322), inset 0px 1px 3px rgba(0, 0, 0, 0.411);
+
+}
+
+li input:checked{
+    background-color: #000000;
+	border: 1px solid #000000;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #ffffff;
+}
+
+li input:checked::after{
+    content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #ffffff;
+}
 #todo-list li p{
     font-size: 30px;
+}
+
+.todo-container{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.todo-delete{
+
 }
 
 .low-priority {
