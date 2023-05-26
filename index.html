@@ -8,18 +8,28 @@
 </head>
 <body>
     <div class="main-content">
-        <h1>Prioritiz</h1>
-            <div class="main-folder-container">
-                <h2>Folder</h2>
-                <form>
-                    <input type="text" id="folder-input" placeholder="name">
-                    <input type="text" id="todo-description" placeholder="description">
-                    <button id="folder-btn">Add Folder</button>
-                </form>
-                <div class="folder-container">
-                </div>
+        <div id="title">
+            <h1>Prioritiz</h1>
+            <img src="../src/img/check-all.svg" alt="check mark">
+        </div>
+        <div class="main-folder-container">
+            <h2>Folders</h2>
+            <div class="folder-container">
             </div>
+            <form id="form">
+                <input type="text" id="folder-input" placeholder="name">
+                <input type="text" id="todo-description" placeholder="description">
+                <button id="folder-btn">Add Folder</button>
+            </form>
+            <div class="folder-add-container">
+                <h2>Add Folder</h2>
+                <button id="display-form-btn">+</button>
+            </div>
+        </div>
         <div id="todo-list-container">
+            <h2>Tasks</h2>
+            <ul id="todo-list">
+            </ul>
             <form>
                 <input type="text" id="todo-title" placeholder="title">
                 <select name="Priority" id="todo-priority">
@@ -29,8 +39,6 @@
                 </select>
                 <button id="todo-btn">Add ToDo</button>
             </form>
-            <ul id="todo-list">
-            </ul>
         </div>
     </div>
     <script src="main.js"></script>
