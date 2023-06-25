@@ -18,7 +18,7 @@ function importInfo() {
     folderStorage = JSON.parse(localStorage.getItem('folders'));
     console.log(folderStorage)
     for(let i = 0; i < folderStorage.length; i++){
-        createFolder(folderStorage[i].name, folderStorage[i].description)
+        createFolder(folderStorage[i].name, folderStorage[i].description, folderStorage[i].todo)
     }
 }
 

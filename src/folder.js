@@ -1,5 +1,5 @@
 import folderStorage from './index.js'
-import {Todo, deleteTodoTimer} from './todo.js'
+import {Todo, deleteTodo} from './todo.js'
 import trashCanSvg from './img/trash-can.svg'
 
 const todoListContainer = document.querySelector("#todo-list-container");
@@ -9,6 +9,9 @@ const addFolderBtn = document.querySelector("#folder-btn");
 const inputTitle = document.querySelector("#todo-title");
 const showFormBtn = document.querySelector("#display-form-btn")
 const form = document.querySelector("#form");
+
+folderStorage = JSON.parse(localStorage.getItem('folders'));
+
 
 let addFolder = false
 let i = -1
@@ -28,11 +31,11 @@ showFormBtn.addEventListener('click', () => {
 
 
 class Folder{
-    constructor(name, description, id){
+    constructor(name, description, id, todo){
         this.name = name;
         this.description = description;
         this.id = id;
-        this.todo = [];
+        this.todo = todo;
     }
 
     addTodo(title, priority, complete, id){
@@ -47,35 +50,32 @@ class Folder{
     
 
 }
-
-function createFolder(folderTitle, description){
+let newStorage = [];
+function createFolder(folderTitle, description, todo){
     const folderContainer = document.querySelector(".folder-container");
     const currentFolder = document.createElement("div");
     const folderHeader = document.createElement("div");
     const deleteImg = new Image();
     const folderText = document.createElement("h2");
     const folderDescription = document.createElement("p");
-    folderStorage = JSON.parse(localStorage.getItem('folders'));
-    let newFolder = new Folder(folderTitle, description, getId(i));
+    let newFolder = new Folder(folderTitle, description, getId(i), todo);
 
+    console.log(newFolder)
     let deleted = false;
-
+    newStorage.push(newFolder)
+    console.table(newStorage)
     i = getId(i);
     currentFolder.id = i;
 
-    for(let i = 0; i < 1; i++){
-        deleteImg.addEventListener('click', () => {
-            console.log(folderStorage[newFolder.id])
-            const index = folderStorage.indexOf(folderStorage[newFolder.id]);
+    deleteImg.addEventListener('click', () => {
+        console.log(newFolder.name)
+        let newStorage = folderStorage.filter((r) => { return r.name != newFolder.name});
+        folderStorage = newFolder;
+        localStorage.setItem('folders', JSON.stringify(newStorage))
+        console.table(folderStorage)
 
-            folderContainer.removeChild(currentFolder);
-            if(index > -1){
-            folderStorage.splice(index, 1);
-            }
-           deleted = true
-            localStorage.setItem('folders', JSON.stringify(folderStorage))
         })
-    }
+    
     
 
     deleteImg.src = trashCanSvg;
@@ -105,6 +105,7 @@ function createFolder(folderTitle, description){
         todoListContainer.style.display = "flex"
     });
 
+    localStorage.setItem('folders', JSON.stringify(newStorage))
 
     
 }
@@ -176,3 +177,4 @@ function getId(i){
 }
 
 export {createFolder, selectedFolder, Folder, displayFolder};
+
