@@ -2,7 +2,6 @@ import './styles.css'
 import {createFolder} from './folder.js'
 
 let folderStorage = [];
-
 if(!localStorage.getItem('folders')) {
     populateStorage();
 } else {
@@ -21,6 +20,7 @@ function importInfo() {
         createFolder(folderStorage[i].name, folderStorage[i].description, folderStorage[i].todo)
     }
 }
+
 
 console.log(localStorage)
 export {folderStorage};

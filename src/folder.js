@@ -21,6 +21,7 @@ addFolderBtn.addEventListener('click', (e) => {
     e.preventDefault();
     addFolder = true;
     createFolder(inputFolder.value, inputDescription.value);
+    addFolder = false;
     localStorage.setItem('folders', JSON.stringify(folderStorage))
 });
 
@@ -58,21 +59,30 @@ function createFolder(folderTitle, description, todo){
     const deleteImg = new Image();
     const folderText = document.createElement("h2");
     const folderDescription = document.createElement("p");
+    // makes new folder have a empty todo: array
+    if (todo == undefined) todo = [];
     let newFolder = new Folder(folderTitle, description, getId(i), todo);
 
-    console.log(newFolder)
+  //  console.log(newFolder)
     let deleted = false;
     newStorage.push(newFolder)
-    console.table(newStorage)
+   // console.table(newStorage)
     i = getId(i);
-    currentFolder.id = i;
+    currentFolder.id = "folder" + i;
 
     deleteImg.addEventListener('click', () => {
-        console.log(newFolder.name)
+        
+        deleted = true;
         let newStorage = folderStorage.filter((r) => { return r.name != newFolder.name});
-        folderStorage = newFolder;
-        localStorage.setItem('folders', JSON.stringify(newStorage))
-        console.table(folderStorage)
+        folderStorage = newStorage
+
+        i = -1
+        refreshFolder()
+
+        localStorage.setItem('folders', JSON.stringify(folderStorage))
+
+        console.log(newStorage)
+        console.log(folderStorage)
 
         })
     
@@ -175,6 +185,23 @@ function getId(i){
     i++;
     return i;
 }
+
+function refreshFolder(){
+    removeChildren();
+    newStorage = [];
+    for(let i = 0; i < folderStorage.length; i++){
+        createFolder(folderStorage[i].name, folderStorage[i].description, folderStorage[i].todo)
+    }
+}
+
+function removeChildren(){
+    const folderContainer = document.querySelector(".folder-container");
+    while (folderContainer.firstChild){
+        folderContainer.removeChild(folderContainer.firstChild)
+    }
+}
+
+
 
 export {createFolder, selectedFolder, Folder, displayFolder};
 
