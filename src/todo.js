@@ -8,7 +8,7 @@ const inputTitle = document.querySelector("#todo-title");
 
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if(inputTitle.value == "") return
+    if(inputTitle.value == "") return 
     new Folder().addTodo(inputTitle.value, todoPriority.value, false, selectedFolder.id);
 });
 

@@ -8,7 +8,7 @@ const inputFolder = document.querySelector("#folder-input");
 const addFolderBtn = document.querySelector("#folder-btn");
 const inputTitle = document.querySelector("#todo-title");
 const showFormBtn = document.querySelector("#display-form-btn")
-const form = document.querySelector("#form");
+const form = document.querySelector("#form-folder");
 
 folderStorage = JSON.parse(localStorage.getItem('folders'));
 
@@ -19,6 +19,11 @@ let selectedFolder = undefined
 
 addFolderBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    if(inputFolder.value == '' || inputFolder.value == "Common Name Found") return;
+    if(folderStorage.some(folder => folder.name == inputFolder.value)) {
+        setTimeout(() => inputFolder.value = "", 2000);
+        return inputFolder.value = "Common Name Found"
+    };
     addFolder = true;
     createFolder(inputFolder.value, inputDescription.value);
     addFolder = false;
@@ -52,6 +57,8 @@ class Folder{
 
 }
 let newStorage = [];
+let prevActive = null;
+
 function createFolder(folderTitle, description, todo){
     const folderContainer = document.querySelector(".folder-container");
     const currentFolder = document.createElement("div");
@@ -105,12 +112,18 @@ function createFolder(folderTitle, description, todo){
     inputFolder.value = "";
 
     if(addFolder)folderStorage.push(newFolder);
-    
     currentFolder.addEventListener('click', (event) => {
         event.preventDefault();
+        
+    //prevents the folder which is to be deleted from opening
         if(deleted) return deleted = false;
+    //prevents the folder to re-open
         if(selectedFolder == newFolder) return;
         displayFolder(folderStorage[newFolder.id].todo);
+        currentFolder.classList.toggle("active")
+        if(prevActive !== null) prevActive.classList.toggle("active");
+        prevActive = currentFolder;
+        console.log(prevActive)
         selectedFolder = newFolder;
         todoListContainer.style.display = "flex"
     });
