@@ -2,6 +2,8 @@ import './styles.css'
 import {createFolder} from './folder.js'
 
 let folderStorage = [];
+let exampleFolder = false;
+
 if(!localStorage.getItem('folders')) {
     populateStorage();
 } else {
@@ -10,6 +12,7 @@ if(!localStorage.getItem('folders')) {
 
 function populateStorage() {
     localStorage.setItem('folders', JSON.stringify(folderStorage));
+    exampleFolder = true
     importInfo();
 }
 
@@ -23,4 +26,4 @@ function importInfo() {
 
 
 console.log(localStorage)
-export {folderStorage};
+export {folderStorage, exampleFolder};

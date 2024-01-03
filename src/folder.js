@@ -1,5 +1,5 @@
 import folderStorage from './index.js'
-import {Todo, deleteTodo} from './todo.js'
+import {Todo, deleteTodo, exampleFolder} from './todo.js'
 import trashCanSvg from './img/trash-can.svg'
 
 const todoListContainer = document.querySelector("#todo-list-container");
@@ -27,11 +27,26 @@ addFolderBtn.addEventListener('click', (e) => {
     addFolder = true;
     createFolder(inputFolder.value, inputDescription.value);
     addFolder = false;
+    form.classList.toggle("active");
+    addFolderBtn.classList.toggle("toggle");
+    form.querySelectorAll("input").forEach(el => el.classList.toggle('toggle'))
+    showFormBtn.textContent = "+"
+    showFormBtn.style.backgroundColor = "rgba(0, 134, 13, 0.281)"
     localStorage.setItem('folders', JSON.stringify(folderStorage))
 });
 
 showFormBtn.addEventListener('click', () => {
-    form.classList.toggle("active") 
+    form.classList.toggle("active");
+    addFolderBtn.classList.toggle("toggle");
+    form.querySelectorAll("input").forEach(el => el.classList.toggle('toggle'))
+    console.log(form.querySelectorAll("input"))
+    if(showFormBtn.textContent == "+"){
+    showFormBtn.textContent = "✕"
+    showFormBtn.style.backgroundColor = "rgb(185, 72, 72)"
+    }else {
+    showFormBtn.textContent = "+";
+     showFormBtn.style.backgroundColor = "rgba(0, 134, 13, 0.281)"
+    }
 })
 
 
@@ -66,6 +81,10 @@ function createFolder(folderTitle, description, todo){
     const deleteImg = new Image();
     const folderText = document.createElement("h2");
     const folderDescription = document.createElement("p");
+
+    if(exampleFolder){
+
+    }
     // makes new folder have a empty todo: array
     if (todo == undefined) todo = [];
     let newFolder = new Folder(folderTitle, description, getId(i), todo);
@@ -112,9 +131,9 @@ function createFolder(folderTitle, description, todo){
     inputFolder.value = "";
 
     if(addFolder)folderStorage.push(newFolder);
+    
     currentFolder.addEventListener('click', (event) => {
         event.preventDefault();
-        
     //prevents the folder which is to be deleted from opening
         if(deleted) return deleted = false;
     //prevents the folder to re-open
@@ -141,7 +160,7 @@ function displayFolder(todoList){
 		let listItemElement = document.createElement("li");
         let listItemText = document.createElement("p");
         let listItemCompletion = document.createElement('input');
-        let listItemDeleteBtn = document.createElement('button');
+        let listItemDeleteBtn = new Image();
         let listContainer = document.createElement('div');
 
         if(todoList[i].priority == "Low"){listItemCompletion.classList.add("low-priority")}
@@ -174,7 +193,7 @@ function displayFolder(todoList){
         
 		listItemText.textContent = todoList[i].title;
         listItemCompletion.checked = todoList[i].complete;
-        listItemDeleteBtn.textContent = "Delete"
+        listItemDeleteBtn.src = trashCanSvg;
         if(todoList[i].complete){
             listItemDeleteBtn.style.display = "block";
             listItemElement.style.backgroundColor = "#adadad";

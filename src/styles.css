@@ -66,6 +66,7 @@ div div img{
     font-size: 20px;
     justify-content: space-between;
     align-items: center;
+    transition: 0.7s;
 }
 
 #display-form-btn{
@@ -74,44 +75,58 @@ div div img{
     width: 30px;
     height: 30px;
     border: 2px solid black;
-    background-color: transparent;
+    background-color: rgba(0, 134, 13, 0.281);
 }
 
 #form-folder{
-    display: none;
-    z-index: 1;
-    width: 100%;
     background-color: transparent;
+    width: 0;
     border-radius: 10px;
+    transition: 0.7s;
 }
 
 #form-folder.active{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
     gap: 10px;
     margin: 17px 0px;
 }
 
-.form-folder-input{
+.form-folder-input-box{
     display: flex;
     flex-direction: column;
+    width: 80%;
     gap: 10px;
 }
 
 #form-folder input{
-    width: 95%;
-    height: 18px;
-    font-size: 15px;
-    padding-left: 2px;
+    height: 23px;
+    font-size: 18px;
+    padding-left: 3px;
     background-color: transparent;
     border: none;
+    display: none;
     border-left: 2px solid black;
+}
+#form-folder input.toggle{
+    display: inline;
 }
 
 
 #form-folder button{
     border: none;
     background-color: transparent;
+    display: none;
+    
+}
+#form-folder button.toggle{
+    border: none;
+    background-color: transparent;
+    display: inline;
+    
 }
 
 #form-folder button img{
@@ -123,15 +138,19 @@ div div img{
     
 }
 
+
 #todo-list-container{
     display: none;
-    padding-left: 10%;
     align-items: center;
-    max-width: 1000px;
+    max-width: 2000px;
     flex-direction: column;
 }
+#todo-list-container h2{
+    width: 80%;
+    text-align: center;
+}
 
-#todo-list-container form{
+#form-todo{
     margin-bottom: 20px;
 }
 
@@ -144,7 +163,7 @@ div div img{
 #todo-list li{
     display: flex;
     gap: 40px;
-    width: 80%;
+    width: 100%;
     align-items: center;
     font-size: 30px;
 }
@@ -181,7 +200,7 @@ li input:checked{
 .todo-container{
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
 }
 
 .todo-delete{
@@ -189,7 +208,7 @@ li input:checked{
 }
 
 .low-priority {
-    background-color: rgb(127, 255, 138);
+    background-color: rgb(109, 230, 121);
 }
 
 .medium-priority{ background-color: rgb(231, 172, 61);}
