@@ -17,7 +17,7 @@
             <div class="folder-container">
             </div>
             <form id="form-folder">
-                <div class="form-folder-input">
+                <div class="form-folder-input-box">
                     <input type="text" id="folder-input" placeholder="Name">
                     <input type="text" id="todo-description" placeholder="Description">
                 </div>
@@ -34,10 +34,11 @@
             <h2>Tasks</h2>
             <ul id="todo-list">
             </ul>
-            <form>
+            <form id="form-todo">
                 <input type="text" id="todo-title" placeholder="title">
                 <select name="Priority" id="todo-priority">
-                    <option value="Low" selected>Low</option>
+                    <option value="" disabled selected>Priority</option>
+                    <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                 </select>
