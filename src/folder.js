@@ -2,12 +2,12 @@ import folderStorage from './index.js'
 import {Todo, deleteTodo, exampleFolder} from './todo.js'
 import trashCanSvg from './img/trash-can.svg'
 
-const todoListContainer = document.querySelector("#todo-list-container");
+const todoListContainer = document.querySelector("#task-container");
 const inputDescription = document.querySelector("#todo-description")
 const inputFolder = document.querySelector("#folder-input");
 const addFolderBtn = document.querySelector("#folder-btn");
 const inputTitle = document.querySelector("#todo-title");
-const showFormBtn = document.querySelector("#display-form-btn")
+const showFolderFormBtn = document.querySelector("#display-form-btn")
 const form = document.querySelector("#form-folder");
 
 folderStorage = JSON.parse(localStorage.getItem('folders'));
@@ -30,22 +30,22 @@ addFolderBtn.addEventListener('click', (e) => {
     form.classList.toggle("active");
     addFolderBtn.classList.toggle("toggle");
     form.querySelectorAll("input").forEach(el => el.classList.toggle('toggle'))
-    showFormBtn.textContent = "+"
-    showFormBtn.style.backgroundColor = "rgba(0, 134, 13, 0.281)"
+    showFolderFormBtn.textContent = "+"
+    showFolderFormBtn.style.backgroundColor = "rgba(0, 134, 13, 0.281)"
     localStorage.setItem('folders', JSON.stringify(folderStorage))
 });
 
-showFormBtn.addEventListener('click', () => {
+showFolderFormBtn.addEventListener('click', () => {
     form.classList.toggle("active");
     addFolderBtn.classList.toggle("toggle");
     form.querySelectorAll("input").forEach(el => el.classList.toggle('toggle'))
     console.log(form.querySelectorAll("input"))
-    if(showFormBtn.textContent == "+"){
-    showFormBtn.textContent = "✕"
-    showFormBtn.style.backgroundColor = "rgb(185, 72, 72)"
+    if(showFolderFormBtn.textContent == "+"){
+    showFolderFormBtn.textContent = "✕"
+    showFolderFormBtn.style.backgroundColor = "rgb(185, 72, 72)"
     }else {
-    showFormBtn.textContent = "+";
-     showFormBtn.style.backgroundColor = "rgba(0, 134, 13, 0.281)"
+    showFolderFormBtn.textContent = "+";
+     showFolderFormBtn.style.backgroundColor = "rgba(0, 134, 13, 0.281)"
     }
 })
 
@@ -78,7 +78,7 @@ function createFolder(folderTitle, description, todo){
     const folderContainer = document.querySelector(".folder-container");
     const currentFolder = document.createElement("div");
     const folderHeader = document.createElement("div");
-    const deleteImg = new Image();
+    const deleteFolder = new Image();
     const folderText = document.createElement("h2");
     const folderDescription = document.createElement("p");
 
@@ -96,7 +96,7 @@ function createFolder(folderTitle, description, todo){
     i = getId(i);
     currentFolder.id = "folder" + i;
 
-    deleteImg.addEventListener('click', () => {
+    deleteFolder.addEventListener('click', () => {
         
         deleted = true;
         let newStorage = folderStorage.filter((r) => { return r.name != newFolder.name});
@@ -114,7 +114,7 @@ function createFolder(folderTitle, description, todo){
     
     
 
-    deleteImg.src = trashCanSvg;
+    deleteFolder.src = trashCanSvg;
 
     folderHeader.id = "folder-header";
 
@@ -124,7 +124,7 @@ function createFolder(folderTitle, description, todo){
     folderContainer.appendChild(currentFolder);
     currentFolder.appendChild(folderHeader);
     folderHeader.appendChild(folderText);
-    folderHeader.appendChild(deleteImg);
+    folderHeader.appendChild(deleteFolder);
     currentFolder.appendChild(folderDescription);
     
     inputDescription.value = "";
@@ -174,11 +174,10 @@ function displayFolder(todoList){
 
             if(todoList[i].complete){
                 listItemDeleteBtn.style.display = "block";
-                listItemElement.style.backgroundColor = "#adadad"
+                listItemElement.style.boxShadow = "0 0 7px 2px rgba(0, 0, 0, 0.311)";
             }else{
                 listItemDeleteBtn.style.display = "none";
-                listItemElement.style.backgroundColor = "";
-            };
+                listItemElement.style.boxShadow = "none";            };
 
             localStorage.setItem('folders', JSON.stringify(folderStorage));
         })
@@ -189,19 +188,19 @@ function displayFolder(todoList){
         })
 
         listItemDeleteBtn.classList.add("todo-delete")
-        listContainer.classList.add("todo-container")
+        listContainer.classList.add("todo-title-delete")
         
 		listItemText.textContent = todoList[i].title;
         listItemCompletion.checked = todoList[i].complete;
         listItemDeleteBtn.src = trashCanSvg;
+        // Adds CSS to Task when displaying folder
         if(todoList[i].complete){
             listItemDeleteBtn.style.display = "block";
-            listItemElement.style.backgroundColor = "#adadad";
+            listItemElement.style.boxShadow = "2px 0 7px 1px rgba(0, 0, 0, 0.311)";
         }else{
             listItemDeleteBtn.style.display = "none";
-            listItemElement.style.backgroundColor = "";
+            listItemElement.style.boxShadow = "none";
         };
-
 
 		todoListElement.appendChild(listItemElement);
         listItemElement.appendChild(listItemCompletion);

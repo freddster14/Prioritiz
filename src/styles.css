@@ -3,12 +3,13 @@
 *{
     margin: 0px;
     padding: 0px;
+    box-sizing:border-box;
+    font-family: 'Libre Baskerville', serif;
 }
 .main-content{
     display: grid;
     height: 100vh;
     width: 100%;
-    font-family: 'Libre Baskerville', serif;
     grid-template-columns: 25% 75%;
     grid-template-rows: auto 1fr;
     background-color: #bbbbbb;
@@ -29,26 +30,33 @@ h1{
     font-weight: 700;
  
 }
-#title img{
-    width: 80px;
-}
+#title img{width: 80px;}
 
+
+.folder-container{
+    margin-left: 10px;
+    
+}
 
 #folder-header{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 2px;
 }
 
-.active{
-    background-color: #c2c2c2;
+.folder-container div.active{
+    box-shadow:1px 1px 10px 1px rgba(0, 0, 0, 0.411);
+
 }
 div h2 {
     font-size: 30px;
     color: #222222;
 }
 
+/* Trash Can in Folders Img */
 div div img{
     width: 30px;
+    filter: drop-shadow(4px 3px 2px rgba(0, 0, 0, 0.308));
 }
 
 
@@ -69,7 +77,7 @@ div div img{
     transition: 0.7s;
 }
 
-#display-form-btn{
+#display-form-btn, #todo-btn{
     border-radius: 20px;
     font-size: 23px;
     width: 30px;
@@ -133,62 +141,66 @@ div div img{
     width: 35px;
 }
 
-.folder-container{
-    margin-left: 10px;
-    
-}
 
 
-#todo-list-container{
-    display: none;
+
+#task-container{
+    display: none;	
     align-items: center;
     max-width: 2000px;
     flex-direction: column;
 }
-#todo-list-container h2{
+
+/* "Task(s)" */
+#task-container h2{
     width: 80%;
     text-align: center;
+    margin-top: 10px;
 }
 
-#form-todo{
-    margin-bottom: 20px;
-}
+
+
 
 #todo-list{
     width: 80%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 5px;
+    margin: 10px 0px;
+
 }
 #todo-list li{
     display: flex;
     gap: 40px;
     width: 100%;
+    border-radius: 7px;
+    padding: 1px 4px;
     align-items: center;
     font-size: 30px;
 }
 li input{
     -webkit-appearance: none;
-	border: 1px solid #cacece;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	box-shadow: 1px 2px 0px 0.5px rgba(0, 0, 0, 0.151), inset -2px -2px 1px rgba(0, 0, 0, 0.199);
 	padding: 9px;
-	border-radius: 10px;
+    margin-left: 2px;
+    width: 25px;
+    height: 24px;
+	border-radius: 35px;
 	display: inline-block;
 	position: relative;
     cursor: pointer;
 }
 
-li input:active, li input:checked:active{
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.322), inset 0px 1px 3px rgba(0, 0, 0, 0.411);
 
-}
 
 li input:checked{
     background-color: #ffffff;
-	border: 1px solid #000000;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
 	color: #ffffff;
     background-image: url("img/check-all.svg");
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
 
 }
 
@@ -197,15 +209,44 @@ li input:checked{
     font-size: 30px;
 }
 
-.todo-container{
+.todo-title-delete{
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.todo-delete{
+
+#form-todo{
+    margin-bottom: 20px;
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.title-priority-container{
+    display: flex;
+}
+
+#todo-title{
+    font-size: 28px;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding-left: 5px;
+    border-left: 2px solid black;
+}
+
+#todo-priority{
+    background-color: transparent;
+    border: none;
+    font-size: 28px;
 
 }
+
+#todo-btn{
+
+}
+
 
 .low-priority {
     background-color: rgb(109, 230, 121);

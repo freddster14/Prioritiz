@@ -30,19 +30,21 @@
                 <button id="display-form-btn">+</button>
             </div>
         </div>
-        <div id="todo-list-container">
-            <h2>Tasks</h2>
+        <div id="task-container">
+            <h2>Task(s)</h2>
             <ul id="todo-list">
             </ul>
             <form id="form-todo">
-                <input type="text" id="todo-title" placeholder="title">
-                <select name="Priority" id="todo-priority">
-                    <option value="" disabled selected>Priority</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
-                <button id="todo-btn">Add ToDo</button>
+                <div class="title-priority-container">
+                    <input type="text" id="todo-title" placeholder="title">
+                    <select name="Priority" id="todo-priority">
+                        <option value=""  disabled selected>Priority</option>
+                        <option value="Low" class="low-priority" >Low</option>
+                        <option value="Medium" class="medium-priority" >Medium</option>
+                        <option value="High" class="high-priority" >High</option>
+                    </select>
+                </div>
+                <button id="todo-btn">+</button>
             </form>
         </div>
     </div>
