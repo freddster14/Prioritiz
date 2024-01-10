@@ -21,14 +21,20 @@
                     <input type="text" id="folder-input" placeholder="Name">
                     <input type="text" id="todo-description" placeholder="Description">
                 </div>
-                <button id="folder-btn">
+                <button id="add-folder-btn">
                     <img src="/src/img/check-all.svg">
                 </button>
             </form>
             <div class="folder-add-container">
                 <h2>Add Folder</h2>
-                <button id="display-form-btn">+</button>
+                <button id="display-form-btn"></button>
             </div>
+            <h2 class="dues-folder">Upcoming Due</h2>
+        </div>
+        <div id="upcoming-dates-container">
+            <h2>Upcoming</h2>
+            <ul id="todo-list-date">
+            </ul>
         </div>
         <div id="task-container">
             <h2>Task(s)</h2>
@@ -36,15 +42,16 @@
             </ul>
             <form id="form-todo">
                 <div class="title-priority-container">
-                    <input type="text" id="todo-title" placeholder="title">
+                    <input type="text" id="todo-title" placeholder="Title">
                     <select name="Priority" id="todo-priority">
                         <option value=""  disabled selected>Priority</option>
                         <option value="Low" class="low-priority" >Low</option>
                         <option value="Medium" class="medium-priority" >Medium</option>
                         <option value="High" class="high-priority" >High</option>
                     </select>
+                    <input id="date-todo" type="date" placeholder="mm/dd/yyyy">
                 </div>
-                <button id="todo-btn">+</button>
+                <button id="todo-btn"></button>
             </form>
         </div>
     </div>
