@@ -33,10 +33,7 @@ h1{
 #title img{width: 80px;}
 
 
-.folder-container{
-    margin-left: 10px;
-    
-}
+
 
 #folder-header{
     display: flex;
@@ -44,10 +41,6 @@ h1{
     margin-bottom: 2px;
 }
 
-.folder-container div.active{
-    box-shadow:1px 1px 10px 1px rgba(0, 0, 0, 0.411);
-
-}
 div h2 {
     font-size: 30px;
     color: #222222;
@@ -66,6 +59,25 @@ div div img{
     background-color: #e0e0e0;
 }
 
+.main-folder-container h2{
+    color: #222222;
+}
+
+.folder-container{
+    margin-left: 10px;
+    
+}
+
+.folder-container h2{
+    font-size: 30px;
+    color: #222222;
+}
+
+.folder-container div.active{
+    box-shadow:1px 1px 10px 1px rgba(0, 0, 0, 0.411);
+
+}
+
 .folder-add-container{
     display: flex;
     margin-top: 10px;
@@ -79,11 +91,13 @@ div div img{
 
 #display-form-btn, #todo-btn{
     border-radius: 20px;
-    font-size: 23px;
+    font-size: 25px;
     width: 30px;
     height: 30px;
     border: 2px solid black;
     background-color: rgba(0, 134, 13, 0.281);
+    transition: 0.7s;
+    background-image: url("img/plus.svg");
 }
 
 #form-folder{
@@ -111,13 +125,18 @@ div div img{
 }
 
 #form-folder input{
-    height: 23px;
+    height: 30px;
     font-size: 18px;
     padding-left: 3px;
     background-color: transparent;
     border: none;
     display: none;
+    outline: none;
     border-left: 2px solid black;
+}
+
+#form-folder input:focus{
+    background-color: #c9c9c9;
 }
 #form-folder input.toggle{
     display: inline;
@@ -141,13 +160,51 @@ div div img{
     width: 35px;
 }
 
+.dues-folder{
+    font-size: 28px;
+    margin-top: 15px;
+}
+#upcoming-dates-container{
+    display:none;
+    flex-direction: column;
+    align-items: center;
+    max-width: 2000px;
+    
+}
 
+#upcoming-dates-container h2{
+    width: 80%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+#todo-list-date{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin: 10px 0px;
+}
+
+#todo-list-date li{
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    border-radius: 7px;
+    padding: 1px 4px;
+    align-items: center;
+    font-size: 30px;
+}
 
 
 #task-container{
     display: none;	
     align-items: center;
     max-width: 2000px;
+    grid-column: 2;
+    grid-row: 2;
     flex-direction: column;
 }
 
@@ -180,7 +237,7 @@ div div img{
     font-size: 30px;
 }
 li input{
-    -webkit-appearance: none;
+    appearance: none;
 	box-shadow: 1px 2px 0px 0.5px rgba(0, 0, 0, 0.151), inset -2px -2px 1px rgba(0, 0, 0, 0.199);
 	padding: 9px;
     margin-left: 2px;
@@ -215,25 +272,47 @@ li input:checked{
     width: 100%;
 }
 
+.todo-date-delete-container{
+    display: flex;
+    gap: 18px;
+}
 
 #form-todo{
-    margin-bottom: 20px;
+    margin-top: 17px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     width: 80%;
-    justify-content: space-between;
+    max-width: 684px;
+    justify-content: center;
 }
 
 .title-priority-container{
+    opacity: 0;
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    transition: 0.5s;
 }
 
+.title-priority-container.active{
+    opacity: 100;
+    transition: 0.5s;
+}
+/* Form Title */
 #todo-title{
     font-size: 28px;
     appearance: none;
     background-color: transparent;
+    outline: none;
     border: none;
     padding-left: 5px;
     border-left: 2px solid black;
+}
+
+#todo-title:focus{
+    background-color: #cccccc;
 }
 
 #todo-priority{
@@ -244,7 +323,19 @@ li input:checked{
 }
 
 #todo-btn{
+    width: 35px;
+    height: 35px;
+    font-size: 28px;
+    
+}
 
+#todo-btn.toggle{
+    background-color: #ffffff;
+	color: #ffffff;
+    background-image: url("img/check-all.svg");
+    background-size: 25px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 
@@ -255,3 +346,5 @@ li input:checked{
 .medium-priority{ background-color: rgb(231, 172, 61);}
 
 .high-priority{background-color: rgb(185, 72, 72);}
+
+
