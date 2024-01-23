@@ -1,7 +1,7 @@
 import {folderStorage, updateFolderStorage} from './index.js'
 import {Todo, deleteTodo, upcomingContainer} from './todo.js'
-import trashCanSvg from './img/trash-can.svg'
-import plusSvg from './img/plus.svg'
+import trashCanSvg from '/img/trash-can.svg'
+import plusSvg from '/img/plus.svg'
 
 const todoListContainer = document.querySelector(".task-container");
 const inputDescription = document.querySelector("#todo-description")
