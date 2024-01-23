@@ -1,6 +1,6 @@
 import {folderStorage}  from "./index.js";
 import { selectedFolder, Folder, openFolder, todoListContainer, prevActive} from "./folder.js";
-import trashCanSvg from '/img/trash-can.svg'
+import trashCanSvg from 'img/trash-can.svg'
 
 
 const addTodoBtn = document.querySelector("#todo-btn");
