@@ -1,7 +1,7 @@
-import  folderStorage  from "./index.js";
-import { selectedFolder, Folder, displayFolder, todoListContainer } from "./folder.js";
+import {folderStorage}  from "./index.js";
+import { selectedFolder, Folder, openFolder, todoListContainer, prevActive} from "./folder.js";
 import trashCanSvg from './img/trash-can.svg'
-import { add } from "date-fns";
+
 
 const addTodoBtn = document.querySelector("#todo-btn");
 const todoPriority = document.querySelector("#todo-priority");
@@ -9,7 +9,9 @@ const inputTitle = document.querySelector("#todo-title");
 const dueDate = document.querySelector("#date-todo");
 const formInfoContainer = document.querySelector(".title-priority-container");
 const dueDateFolder = document.querySelector(".dues-folder");
-const upcomingContainer = document.querySelector("#upcoming-dates-container");
+const upcomingContainer = document.querySelector(".upcoming-dates-container");
+const errorDate = document.querySelector("#error-box");
+const folderImg = document.querySelector(".folder-img");
 
 let upcomingTodoList = document.getElementById("todo-list-date");
 let todoBtnCount = 0;
@@ -23,61 +25,56 @@ addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if(todoBtnCount == 0){
         addTodoBtn.textContent = "";
+        dueDate.value = "";
         addTodoBtn.classList.toggle("toggle");
         formInfoContainer.classList.toggle("active");
-
         ++todoBtnCount
-        console.log(todoBtnCount)
-
     }else{
         if(inputTitle.value == "" || todoPriority.value == "") {
         addTodoBtn.classList.toggle("toggle");
         formInfoContainer.classList.toggle("active");
         todoBtnCount--;
+        
         return
         }
+        if(dueDate.value == ""){}
+        else if(dueDate.value < getTodayDate() || new Date(dueDate.value).getFullYear() > 9999)
+        return  errorDate.classList.toggle("alert");
+        if(errorDate.classList.contains("alert")) errorDate.classList.toggle("alert");
         new Folder().addTodo(
             inputTitle.value, todoPriority.value, dueDate.value, false, selectedFolder.id);
         addTodoBtn.classList.toggle("toggle");
         formInfoContainer.classList.toggle("active");
         todoBtnCount--;
-        console.log(todoBtnCount);
-
-        
     }
-    
 });
 
 dueDateFolder.addEventListener('click', (e) => {
-
+    dateTodo = []
     tempAllTodo = []
     allTodo = []
     for(let i = 0; i < folderStorage.length; i++){
-       
         tempAllTodo.push(folderStorage[i].todo);
-
-
         allTodo.push(tempAllTodo[i]);
-        
-
     }
     allTodo.forEach((e) => {
         for(let i = 0; i < e.length; i++){
-            
-            if(e[i].date !== undefined && !dateTodo.includes(e[i])) dateTodo.push(e[i])
+            if(e[i].date !== '' && !dateTodo.includes(e[i])) dateTodo.push(e[i])
         }
     })
-    tempAllTodo = allTodo
-    console.log(dateTodo)
-    console.log(tempAllTodo);
-    console.log(allTodo);
-    displayUpcoming(dateTodo);
-    upcomingContainer.style.display = "flex"
+    dateTodo.sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+    })
+
+    upcomingContainer.classList.toggle("show-flex");
+    if (window.innerWidth < 999) folderImg.click();
+    openUpcoming(dateTodo);
 
 })
 
-function displayUpcoming(dateTodo){
-    todoListContainer.style.display = "none"
+function openUpcoming(dateTodo){
+    //only makes it that the container is removed, when screen is big
+    if (window.innerWidth > 999) todoListContainer.classList.remove("show-flex");
 	upcomingTodoList.innerHTML = "";
     for(let i = 0; i < dateTodo.length; i++){
         let listItemElement = document.createElement("li");
@@ -87,6 +84,11 @@ function displayUpcoming(dateTodo){
         let listItemDeleteBtn = new Image();
         let listContainer = document.createElement('div');
         let dateAndDeleteContainer = document.createElement('div');
+        // Changes date format
+        let curr_date = new Date(dateTodo[i].date);
+        let curr_day = curr_date.getDate() + 1;
+        let curr_month = curr_date.getMonth() + 1;
+        let curr_year = curr_date.getFullYear();
 
         if(dateTodo[i].priority == "Low"){listItemCompletion.classList.add("low-priority")}
         else if(dateTodo[i].priority == "Medium"){listItemCompletion.classList.add("medium-priority")}
@@ -117,7 +119,7 @@ function displayUpcoming(dateTodo){
         dateAndDeleteContainer.classList.add("todo-date-delete-container");
         
 		listItemText.textContent = dateTodo[i].title;
-        listItemDate.textContent = dateTodo[i].date;
+        listItemDate.textContent = curr_month + "-" + curr_day + "-" + curr_year;
         listItemCompletion.checked = dateTodo[i].complete;
         listItemDeleteBtn.src = trashCanSvg;
         // Adds CSS to completed Task when displaying folder
@@ -141,7 +143,11 @@ function displayUpcoming(dateTodo){
     
 }
 
-
+function getTodayDate(){
+    let datePlaceHolder = new Date();
+    datePlaceHolder.setDate(datePlaceHolder.getDate() - 1);
+    return datePlaceHolder.toISOString().split('T')[0];
+}
 class Todo{
     constructor(title, priority, date, complete){
         this.title = title;
@@ -161,7 +167,7 @@ function deleteTodo(todo){
         folderStorage[selectedFolder.id].todo.splice(index, 1);
     }
     localStorage.setItem('folders', JSON.stringify(folderStorage))
-    displayFolder(folderStorage[selectedFolder.id].todo)
+    openFolder(folderStorage[selectedFolder.id].todo)
 }
 
 export {Todo, deleteTodo, upcomingContainer};
