@@ -70,8 +70,9 @@ div div img{
 .folder-container{margin-left: 10px;}
 
 .folder-container h2{
-    font-size: 30px;
     color: #222222;
+    overflow-wrap: anywhere;
+    width: fit-content;
 }
 
 .folder-add-container{
@@ -156,6 +157,7 @@ div div img{
 .upcoming-dates-container{
     display:none;
     flex-direction: column;
+
     align-items: center;
     max-width: 2000px;
     
@@ -362,6 +364,10 @@ li input:checked{
 
     #title img{width: 50px; margin-right: 10px;}
 
+    .upcoming-dates-container{
+        grid-column: 1/-1;
+    }
+
     #todo-list, #todo-list-date{width: 92%;}
 
     #todo-list li, #todo-list-date li{
@@ -370,5 +376,21 @@ li input:checked{
         padding: 1px 2px;
     }
 
+    .todo-date-delete-container{gap: 10px;}
+
     .todo-title-delete{flex-wrap: wrap;}
+
+    #form-todo{width: 85%; gap: 0px;}
+
+    #error-box.alert{margin-bottom: 10px;} 
+
+    .title-priority-container{
+        display: block;
+    }
+    #todo-title, #todo-priority, #date-todo{
+        font-size: 26px;
+    }
+    #todo-title, #todo-priority{width: 49%;}
+
+    #date-todo{text-align: center; margin-bottom: 15px;}
 }  

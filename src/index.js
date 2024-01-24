@@ -52,6 +52,17 @@ if (window.innerWidth < 999) {
     folderImg.click();
 }
 
+
+let mq = window.matchMedia("(max-width: 999px)");
+    
+mq.addListener((event) => {
+  if (event.matches) {
+    folderImg.classList.toggle("show");
+    folderImg.click();
+  }else {folderImg.classList.toggle("show")}
+})
+
+
 function updateFolderStorage(){folderStorage = JSON.parse(localStorage.getItem('folders'));}
 
 export {folderStorage, updateFolderStorage}

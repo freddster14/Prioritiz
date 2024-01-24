@@ -1,7 +1,7 @@
 import {folderStorage, updateFolderStorage} from './index.js'
 import {Todo, deleteTodo, upcomingContainer} from './todo.js'
-import trashCanSvg from 'img/trash-can.svg'
-import plusSvg from 'img/plus.svg'
+import trashCanSvg from './img/trash-can.svg'
+import plusSvg from './img/plus.svg'
 
 const todoListContainer = document.querySelector(".task-container");
 const inputDescription = document.querySelector("#todo-description")
@@ -76,6 +76,7 @@ addFolderBtn.addEventListener('click', (e) => {
 
     form.querySelectorAll("input").forEach(el => el.classList.toggle('toggle'))
     showFolderFormBtn.style.backgroundImage = 'url("'+ plusSvg +'")';
+    showFolderFormBtn.textContent = "";
     showFolderFormBtn.style.backgroundColor = "rgba(0, 134, 13, 0.281)"
     localStorage.setItem('folders', JSON.stringify(folderStorage))
 });

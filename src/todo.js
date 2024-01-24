@@ -1,6 +1,6 @@
 import {folderStorage}  from "./index.js";
 import { selectedFolder, Folder, openFolder, todoListContainer, prevActive} from "./folder.js";
-import trashCanSvg from 'img/trash-can.svg'
+import trashCanSvg from "./img/trash-can.svg"
 
 
 const addTodoBtn = document.querySelector("#todo-btn");
@@ -37,9 +37,10 @@ addTodoBtn.addEventListener('click', (e) => {
         
         return
         }
-        if(dueDate.value == ""){}
-        else if(dueDate.value < getTodayDate() || new Date(dueDate.value).getFullYear() > 9999)
-        return  errorDate.classList.toggle("alert");
+        if(dueDate.value == ""){console.log(dueDate.value)}
+        else if(dueDate.value < getTodayDate() || new Date(dueDate.value).getFullYear() > 9999){
+        console.log(new Date(dueDate.value).getFullYear())
+        return  errorDate.classList.toggle("alert");}
         if(errorDate.classList.contains("alert")) errorDate.classList.toggle("alert");
         new Folder().addTodo(
             inputTitle.value, todoPriority.value, dueDate.value, false, selectedFolder.id);
