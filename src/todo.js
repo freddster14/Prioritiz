@@ -49,6 +49,7 @@ addTodoBtn.addEventListener('click', (e) => {
 });
 
 dueDateFolder.addEventListener('click', (e) => {
+  if (window.innerWidth > 999 && upcomingContainer.classList.contains('show-flex')) upcomingContainer.classList.toggle('show-flex');
   dateTodo = [];
   tempAllTodo = [];
   allTodo = [];
@@ -67,13 +68,16 @@ dueDateFolder.addEventListener('click', (e) => {
     upcomingContainer.classList.toggle('show-flex');
     folderImg.click();
   }
-
+  console.log('yes')
   openUpcoming(dateTodo);
 });
 
 function openUpcoming(dateTodo) {
   // only makes it that the container is removed, when screen is big
-  if (window.innerWidth > 999) todoListContainer.classList.remove('show-flex');
+  if (window.innerWidth > 999) {
+    todoListContainer.classList.remove('show-flex');
+    upcomingContainer.classList.toggle('show-flex');
+  }
   upcomingTodoList.innerHTML = '';
   for (let i = 0; i < dateTodo.length; i++) {
     const listItemElement = document.createElement('li');
@@ -169,7 +173,11 @@ function deleteTodo(todo) {
     folderStorage[id].todo.splice(index, 1);
   }
   localStorage.setItem('folders', JSON.stringify(folderStorage));
-  (!upcomingContainer.classList.contains('show-flex')) ? openFolder(folderStorage[id].todo) : dueDateFolder.click();
+  if (!upcomingContainer.classList.contains('show-flex')) {
+    openFolder(folderStorage[id].todo)
+  } else {
+    dueDateFolder.click();
+  }
 }
 
 export { Todo, deleteTodo, upcomingContainer };
