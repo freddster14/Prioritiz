@@ -286,18 +286,25 @@ li input:checked{
     transition: 0.5s;
 }
 
+#date-form-container{
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
 #todo-title,#todo-priority, #date-todo{
     font-size: 28px;
     background-color: transparent;
     outline: none;
-    border: none;
-    padding: 2px 0px 2px 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 4px 2px 4px 5px;
 }
 /* Form Todo Title */
 #todo-title{
-    border: none;
-    border-radius: 0;
-    border-left: 2px solid black;
     width: min(300px, 100%);
 }
 
@@ -311,7 +318,7 @@ li input:checked{
     background-color: #cccccc;
 }
 
-#date-todo{width: min(300px, 100%);}
+#date-form-container label{font-size: 28px;}
 
 #error-box{
     display: none;
@@ -393,15 +400,16 @@ li input:checked{
     .title-priority-container{
         display: block;
     }
-    #todo-title, #todo-priority, #date-todo{
+    #todo-title, #todo-priority, #date-todo, #date-todo{
         font-size: 26px;
         color: black;
     }
+
+    #date-form-container label{font-size: 22px;}
     #todo-title, #todo-priority{width: 49%;}
 
     #date-todo{
         text-align: center;
-        margin-bottom: 15px;
         height: auto;
     }
 }  

@@ -50,7 +50,10 @@
                         <option value="Medium" class="medium-priority" >Medium</option>
                         <option value="High" class="high-priority" >High</option>
                     </select>
-                    <input id="date-todo" type="date">
+                    <div id="date-form-container">
+                        <label for="date-todo">Due Date:</label>
+                        <input id="date-todo" type="date" placeholder="Enter Date">
+                    </div>
                     <div id="error-box">Invalid Date! Enter a date starting from today.</div>
                 </div>
                 <button id="todo-btn"></button>
