@@ -29,11 +29,11 @@
 }
 
 .folder-img{
-    max-width: 50px;
+    max-width: 42px;
     margin-left: 10px;
     padding-right: auto;
     display: none;
-    position: fixed;
+    position: absolute;
     left: 0;
 }
 
@@ -264,6 +264,7 @@ li input:checked{
 #form-todo{
     margin-top: 17px;
     display: flex;
+    margin-bottom: 25px;
     flex-wrap: wrap;
     gap: 10px;
     width: 80%;
