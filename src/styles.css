@@ -410,6 +410,8 @@ li input:checked{
 
     #date-todo{
         text-align: center;
-        height: auto;
+        height: 44px;
+        max-width: 245px;
+        width: 75%;
     }
 }  
