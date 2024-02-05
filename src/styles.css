@@ -43,6 +43,7 @@ h1{
     font-weight: 700;
  
 }
+
 #title img{width: 80px;}
 
 #folder-header{
@@ -161,10 +162,8 @@ div div img{
 .upcoming-dates-container{
     display:none;
     flex-direction: column;
-
     align-items: center;
     max-width: 2000px;
-    
 }
 
 .upcoming-dates-container h2{
@@ -214,7 +213,6 @@ div div img{
     align-items: flex-start;
     gap: 5px;
     margin: 10px 0px;
-
 }
 
 #todo-list li{
@@ -247,7 +245,6 @@ li input:checked{
     background-size: 20px;
     background-position: center;
     background-repeat: no-repeat;
-
 }
 
 .todo-title-delete{
@@ -304,19 +301,15 @@ li input:checked{
     padding: 4px 2px 4px 5px;
 }
 /* Form Todo Title */
-#todo-title{
-    width: min(300px, 100%);
-}
+#todo-title{width: min(300px, 100%);}
+
+::placeholder{color: rgb(36, 36, 36);}
 
 #todo-title:focus, #todo-priority:focus, #date-todo:focus { background-color: #cccccc;}
 
-#todo-priority{
-    width: min(200px, 100%);
-}
+#todo-priority{width: min(200px, 100%);}
 
-#todo-priority:focus{
-    background-color: #cccccc;
-}
+#todo-priority:focus{background-color: #cccccc;}
 
 #date-form-container label{font-size: 28px;}
 
@@ -377,9 +370,7 @@ li input:checked{
 
     #title img{width: 50px; margin-right: 10px;}
 
-    .upcoming-dates-container{
-        grid-column: 1/-1;
-    }
+    .upcoming-dates-container{grid-column: 1/-1;}
 
     #todo-list, #todo-list-date{width: 92%;}
 
@@ -397,15 +388,15 @@ li input:checked{
 
     #error-box.alert{margin-bottom: 10px;} 
 
-    .title-priority-container{
-        display: block;
-    }
+    .title-priority-container{display: block;}
+
     #todo-title, #todo-priority, #date-todo, #date-todo{
         font-size: 26px;
         color: black;
     }
 
     #date-form-container label{font-size: 22px;}
+
     #todo-title, #todo-priority{width: 49%;}
 
     #date-todo{
