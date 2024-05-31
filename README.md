@@ -1,5 +1,5 @@
 # Prioritiz
-Live Preview: [Click Here](https://zeronicc.github.io/Prioritiz/)
+Live Preview: [Click Here](https://freddster14.github.io/Prioritiz/)
 ## Technologies Used
 
 * Webpack (5.75.0)
